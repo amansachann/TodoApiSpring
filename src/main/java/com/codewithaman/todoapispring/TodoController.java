@@ -1,10 +1,9 @@
 package com.codewithaman.todoapispring;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +19,18 @@ public class TodoController {
     }
 
     @GetMapping(path = "/todos")
-    public List<Todo> getAllTodos() {
-        return todoList;
+    public ResponseEntity<List<Todo>> getAllTodos() {
+        return ResponseEntity.ok(todoList);
     }
 
     @PostMapping("/todos")
-    public Todo createTodo(@RequestBody Todo newTodo) {
+
+    public ResponseEntity<Todo> createTodo(@RequestBody Todo newTodo) {
+        /**
+         * @ResponseStatus(HttpStatus.CREATED)
+         * we can use this annotation to return status code.
+         */
         todoList.add(newTodo);
-        return newTodo;
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
     }
 }
