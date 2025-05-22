@@ -26,7 +26,7 @@ public class TodoController {
     @PostMapping("/todos")
 
     public ResponseEntity<Todo> createTodo(@RequestBody Todo newTodo) {
-        /**
+        /*
          * @ResponseStatus(HttpStatus.CREATED)
          * we can use this annotation to return status code.
          */
