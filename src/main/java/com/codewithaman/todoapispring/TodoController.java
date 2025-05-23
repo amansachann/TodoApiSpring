@@ -53,4 +53,28 @@ public class TodoController {
         errorResponse.put("timestamp", String.valueOf(LocalDateTime.now()));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
+    @PatchMapping("/{todoId}")
+    public ResponseEntity<Todo> updateTodoById(@PathVariable  int todoId, @RequestBody Todo updatedTodo) {
+        for(Todo todo: todoList) {
+            if(todo.getId() == todoId) {
+                if(updatedTodo.getUserId() != null) todo.setUserId(updatedTodo.getUserId());
+                if(updatedTodo.getTodo() != null) todo.setTodo(updatedTodo.getTodo());
+                if(updatedTodo.isCompleted() != null) todo.setCompleted(updatedTodo.isCompleted());
+            }
+            return ResponseEntity.ok(todo);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<Todo> deleteTodoById(@PathVariable int todoId) {
+        for(Todo todo: todoList) {
+            if(todo.getId() == todoId) {
+                todoList.remove(todo);
+                return ResponseEntity.ok(todo);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

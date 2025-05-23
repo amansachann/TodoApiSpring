@@ -3,8 +3,8 @@ package com.codewithaman.todoapispring;
 public class Todo{
 	private String todo;
 	private int id;
-	private boolean completed;
-	private int userId;
+	private Boolean completed;
+	private Integer userId;
 
 	public void setTodo(String todo){
 		this.todo = todo;
@@ -26,7 +26,7 @@ public class Todo{
 		this.completed = completed;
 	}
 
-	public boolean isCompleted(){
+	public Boolean isCompleted(){
 		return completed;
 	}
 
@@ -34,7 +34,7 @@ public class Todo{
 		this.userId = userId;
 	}
 
-	public int getUserId(){
+	public Integer getUserId(){
 		return userId;
 	}
 
