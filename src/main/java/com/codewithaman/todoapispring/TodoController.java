@@ -1,6 +1,8 @@
 package com.codewithaman.todoapispring;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,15 @@ import java.util.*;
 public class TodoController {
     private static List<Todo> todoList;
 
-    public TodoController() {
+    private TodoService todoService;
+    private TodoService todoService2;
+
+    public TodoController(
+            @Qualifier("fakeTodoService") TodoService todoService,
+            @Qualifier("anotherTodoService") TodoService todoService2
+    ) {
+        this.todoService = todoService;
+        this.todoService2 = todoService2;
         todoList = new ArrayList<>();
         todoList.add(new Todo("Go to gym", 1, false, 101));
         todoList.add(new Todo("Go to school", 2, true, 102));
@@ -21,6 +31,8 @@ public class TodoController {
 
     @GetMapping
     public ResponseEntity<List<Todo>> getAllTodos() {
+        System.out.println(todoService.doSomething());
+        System.out.println(todoService2.doSomething());
         return ResponseEntity.ok(todoList);
     }
 
